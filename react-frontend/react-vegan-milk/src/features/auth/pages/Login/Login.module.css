@@ -1,0 +1,127 @@
+.wrapper {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 16px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.content {
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.logo {
+  width: 120px;
+  max-width: 40%;
+  display: block;
+  margin: 0 auto 12px;
+  object-fit: contain;
+}
+
+.title {
+  margin: 0 0 18px;
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 700;
+  color: #5b7f42;
+  letter-spacing: -0.02em;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 26px;
+  padding: 20px 16px 22px;
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.06),
+    0 4px 10px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(6px);
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 20px;
+  flex-wrap: wrap;
+}
+
+.linkBtn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6d746d;
+  cursor: pointer;
+}
+
+.signup {
+  color: #7ca84e;
+  font-weight: 700;
+}
+
+.or {
+  font-size: 14px;
+  color: #b0b0b0;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  color: #9f9f9f;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e6e6e6;
+}
+
+.divider span {
+  white-space: nowrap;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.socialBtn {
+  width: 100%;
+  max-width: 140px;
+  height: 60px;
+  border: 1px solid #eeeeee;
+  border-radius: 18px;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.04),
+    0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: transform 0.15s ease;
+}
+
+.socialBtn:hover {
+  transform: translateY(-1px);
+}
+
+.socialIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
