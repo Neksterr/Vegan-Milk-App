@@ -1,9 +1,8 @@
-package project.Vegan_Milk.model.entity;
+package project.Vegan_Milk.account.model.entity;
 
 import jakarta.persistence.*;
-import project.Vegan_Milk.model.enums.AccountRole;
+import project.Vegan_Milk.account.model.enums.AccountRole;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

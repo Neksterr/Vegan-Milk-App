@@ -1,18 +1,20 @@
-package project.Vegan_Milk.service;
+package project.Vegan_Milk.account.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import project.Vegan_Milk.model.dto.AccountLoginRequest;
-import project.Vegan_Milk.model.dto.AccountLoginResponse;
-import project.Vegan_Milk.model.dto.AccountRegisterRequest;
-import project.Vegan_Milk.model.dto.AccountRegisterResponse;
-import project.Vegan_Milk.model.entity.Account;
-import project.Vegan_Milk.model.enums.AccountRole;
-import project.Vegan_Milk.repository.AccountRepository;
+import org.springframework.web.server.ResponseStatusException;
+import project.Vegan_Milk.account.model.dto.AccountLoginRequest;
+import project.Vegan_Milk.account.model.dto.AccountLoginResponse;
+import project.Vegan_Milk.account.model.dto.AccountRegisterRequest;
+import project.Vegan_Milk.account.model.dto.AccountRegisterResponse;
+import project.Vegan_Milk.account.model.entity.Account;
+import project.Vegan_Milk.account.model.enums.AccountRole;
+import project.Vegan_Milk.account.repository.AccountRepository;
 import project.Vegan_Milk.security.JwtService;
 
 @Service
@@ -32,8 +34,7 @@ public class AccountService {
 
     public AccountRegisterResponse registerResponse(AccountRegisterRequest accountRegisterRequest) {
         if (accountRepository.existsByEmail(accountRegisterRequest.email())) {
-            throw new RuntimeException("Username already exists");
-
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already exists");
         }
         Account account = new Account();
         account.setEmail(accountRegisterRequest.email());
@@ -44,7 +45,7 @@ public class AccountService {
 
         Account savedAccount = accountRepository.save(account);
 
-        String token = jwtService.generateToken(savedAccount.getEmail());
+        String token = jwtService.generateToken(savedAccount);
         return new AccountRegisterResponse(savedAccount.getId(),
                 savedAccount.getEmail(),
                 savedAccount.getUsername(),
@@ -58,7 +59,7 @@ public class AccountService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 accountLoginRequest.email(), accountLoginRequest.password()));
         Account account = accountRepository.findByEmail(accountLoginRequest.email()).orElseThrow(() -> new UsernameNotFoundException("Account not found"));
-        String token = jwtService.generateToken(account.getEmail());
+        String token = jwtService.generateToken(account);
         return new AccountLoginResponse(
                 account.getId(),
                 account.getEmail(),

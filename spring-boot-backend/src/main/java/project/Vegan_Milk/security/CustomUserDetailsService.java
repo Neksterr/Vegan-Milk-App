@@ -4,8 +4,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import project.Vegan_Milk.model.entity.Account;
-import project.Vegan_Milk.repository.AccountRepository;
+import project.Vegan_Milk.account.model.entity.Account;
+import project.Vegan_Milk.account.repository.AccountRepository;
 
 import java.util.Optional;
 @Service

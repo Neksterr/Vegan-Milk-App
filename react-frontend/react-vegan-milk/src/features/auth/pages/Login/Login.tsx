@@ -10,7 +10,7 @@ import google from "@/assets/images/google.svg";
 
 export const Login = () => {
   const navigate = useNavigate();
-
+  
   return (
     <div className={styles.wrapper} style={{ backgroundImage: `url(${bg})` }}>
       <div className={styles.content}>

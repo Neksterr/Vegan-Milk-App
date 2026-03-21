@@ -1,4 +1,4 @@
-package project.Vegan_Milk.model.enums;
+package project.Vegan_Milk.account.model.enums;
 
 public enum AccountRole {
     ADMIN,

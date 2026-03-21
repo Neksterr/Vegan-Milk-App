@@ -1,4 +1,4 @@
-package project.Vegan_Milk.model.entity;
+package project.Vegan_Milk.account.model.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

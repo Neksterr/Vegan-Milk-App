@@ -1,17 +1,19 @@
-package project.Vegan_Milk.controller;
+package project.Vegan_Milk.account.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.Vegan_Milk.model.dto.AccountLoginRequest;
-import project.Vegan_Milk.model.dto.AccountLoginResponse;
-import project.Vegan_Milk.model.dto.AccountRegisterRequest;
-import project.Vegan_Milk.model.dto.AccountRegisterResponse;
-import project.Vegan_Milk.service.AccountService;
+import project.Vegan_Milk.account.model.dto.AccountLoginRequest;
+import project.Vegan_Milk.account.model.dto.AccountLoginResponse;
+import project.Vegan_Milk.account.model.dto.AccountRegisterRequest;
+import project.Vegan_Milk.account.model.dto.AccountRegisterResponse;
+import project.Vegan_Milk.account.service.AccountService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5173"})
+@CrossOrigin(origins = {"http://localhost:3001", "http://localhost:5173","http://localhost:3001",})
+@Tag(name = "Authentication", description = "Register and login endpoints")
 public class AccountController {
     private final AccountService accountService;
 
@@ -20,6 +22,7 @@ public class AccountController {
     }
     @PostMapping("/register")
     public ResponseEntity<AccountRegisterResponse> register(@RequestBody AccountRegisterRequest request) {
+        System.out.println("REGISTER CONTROLLER HIT: " + request.email());
         return ResponseEntity.ok(accountService.registerResponse(request));
     }
 

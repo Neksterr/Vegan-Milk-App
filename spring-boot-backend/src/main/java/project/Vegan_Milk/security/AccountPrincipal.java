@@ -3,8 +3,7 @@ package project.Vegan_Milk.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import project.Vegan_Milk.model.entity.Account;
-import project.Vegan_Milk.model.enums.AccountRole;
+import project.Vegan_Milk.account.model.entity.Account;
 
 import java.util.Collection;
 import java.util.List;

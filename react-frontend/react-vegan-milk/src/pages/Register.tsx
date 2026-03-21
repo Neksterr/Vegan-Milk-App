@@ -31,7 +31,7 @@ export default function Register() {
       alert("Passwords do not match");
       return;
     }
-
+    console.log(form.email,form.username,form.password);
     try {
       const payload: AccountRegisterRequest = {
         email: form.email,

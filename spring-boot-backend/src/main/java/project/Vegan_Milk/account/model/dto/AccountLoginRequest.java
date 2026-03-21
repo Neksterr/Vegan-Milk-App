@@ -1,4 +1,4 @@
-package project.Vegan_Milk.model.dto;
+package project.Vegan_Milk.account.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

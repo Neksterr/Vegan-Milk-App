@@ -5,9 +5,19 @@ type Props = {
   icon: string;
   type?: string;
   placeholder: string;
+  name?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const Input = ({ icon, type = "text", placeholder }: Props) => {
+export const Input = ({
+  icon,
+  type = "text",
+  placeholder,
+  name,
+  value,
+  onChange,
+}: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const isPassword = type === "password";
@@ -21,6 +31,9 @@ export const Input = ({ icon, type = "text", placeholder }: Props) => {
 
       <input
         type={inputType}
+        name={name}
+        value={value}
+        onChange={onChange}
         placeholder={placeholder}
         className={styles.input}
       />
