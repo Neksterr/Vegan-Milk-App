@@ -3,6 +3,7 @@ package project.Vegan_Milk.security;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.security.Keys;
@@ -18,11 +19,14 @@ public class JwtService {
     private String secret;
     @Value("${jwt.expiration}")
     private long expiration;
+
     private SecretKey signKey;
 
-    private Key getSignKey(){
-        return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    @PostConstruct
+    public void init() {
+        this.signKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
+
     public String generateToken(String email){
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration);

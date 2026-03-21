@@ -32,7 +32,7 @@ public class AccountService {
 
     public AccountRegisterResponse registerResponse(AccountRegisterRequest accountRegisterRequest) {
         if (accountRepository.existsByEmail(accountRegisterRequest.email())) {
-            throw new RuntimeException("Username already exists");
+            throw new RuntimeException("Email already exists");
 
         }
         Account account = new Account();
