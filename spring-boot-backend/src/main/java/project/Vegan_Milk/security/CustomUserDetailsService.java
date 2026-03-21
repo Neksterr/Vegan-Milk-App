@@ -3,11 +3,12 @@ package project.Vegan_Milk.security;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import project.Vegan_Milk.model.entity.Account;
 import project.Vegan_Milk.repository.AccountRepository;
 
 import java.util.Optional;
-
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
     private final AccountRepository accountRepository;
 
