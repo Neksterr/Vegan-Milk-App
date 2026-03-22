@@ -32,7 +32,7 @@ public class AccountService {
 
     public AccountRegisterResponse registerResponse(AccountRegisterRequest accountRegisterRequest) {
         if (accountRepository.existsByEmail(accountRegisterRequest.email())) {
-            throw new RuntimeException("Username already exists");
+            throw new RuntimeException("Email already exists");
 
         }
         Account account = new Account();
@@ -49,12 +49,12 @@ public class AccountService {
                 savedAccount.getEmail(),
                 savedAccount.getUsername(),
                 savedAccount.getAccountRole(),
-                token, "Account registerd successfully");
+                token, "Account registered successfully");
 
 
     }
 
-    public AccountLoginResponse login( AccountLoginRequest accountLoginRequest) {
+    public AccountLoginResponse login(AccountLoginRequest accountLoginRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 accountLoginRequest.email(), accountLoginRequest.password()));
         Account account = accountRepository.findByEmail(accountLoginRequest.email()).orElseThrow(() -> new UsernameNotFoundException("Account not found"));

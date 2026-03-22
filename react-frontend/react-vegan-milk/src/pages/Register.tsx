@@ -1,15 +1,18 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../api/auth";
 import "./Register.css";
-import { register, AccountRegisterRequest } from "../api/auth";
 
-import logoImg from "../assets/logo-register.png";
-import bgImg from "../assets/register-bg.png";
-
-type RegisterForm = AccountRegisterRequest & {
+type RegisterForm = {
+  email: string;
+  username: string;
+  password: string;
   confirmPassword: string;
 };
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState<RegisterForm>({
     email: "",
     username: "",
@@ -17,123 +20,114 @@ export default function Register() {
     confirmPassword: "",
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
     setForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
+
+    if (error) {
+      setError("");
+    }
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+
+    if (!form.email || !form.username || !form.password || !form.confirmPassword) {
+      setError("Please fill in all fields.");
+      return;
+    }
 
     if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match");
+      setError("Passwords do not match.");
       return;
     }
 
     try {
-      const payload: AccountRegisterRequest = {
+      setLoading(true);
+
+      const response = await register({
         email: form.email,
         username: form.username,
         password: form.password,
-      };
+      });
 
-      const response = await register(payload);
+      console.log("Register response:", response.data);
+
       localStorage.setItem("token", response.data.token);
-      alert("Registered successfully");
-    } catch (error) {
-      console.error(error);
-      alert("Register failed");
+
+      navigate("/login");
+    } catch (err: any) {
+      console.error("Register failed:", err);
+
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Registration failed.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div
-      className="register-page"
-      style={{ backgroundImage: `url(${bgImg})` }}
-    >
+    <div className="register-page">
       <div className="register-card">
-        <img src={logoImg} alt="Vegan Milk" className="register-logo" />
-
         <h1 className="register-title">Register</h1>
 
-        <form className="register-form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <span className="input-icon">👤</span>
-            <input
-              type="text"
-              name="username"
-              placeholder="Full Name"
-              value={form.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="register-form">
+          <input
+            type="text"
+            name="username"
+            placeholder="Full Name"
+            value={form.username}
+            onChange={handleChange}
+            className="register-input"
+          />
 
-          <div className="input-group">
-            <span className="input-icon">✉️</span>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            className="register-input"
+          />
 
-          <div className="input-group">
-            <span className="input-icon">🔒</span>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            className="register-input"
+          />
 
-          <div className="input-group">
-            <span className="input-icon">🔒</span>
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={form.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            className="register-input"
+          />
 
-          <button type="submit" className="register-btn">
-            Sign Up
+          {error && <p className="register-error">{error}</p>}
+
+          <button type="submit" className="register-button" disabled={loading}>
+            {loading ? "Signing Up..." : "Sign Up"}
           </button>
         </form>
 
-        <p className="register-terms">
-          By signing up, you agree to the <span>Terms of Service</span> and{" "}
-          <span>Privacy Policy</span>
-        </p>
-
-        <div className="register-divider">
-          <span />
-          <p>Already have an account?</p>
-          <span />
-        </div>
-
-        <div className="social-buttons">
-          <button type="button" className="social-btn">
-            G
-          </button>
-          <button type="button" className="social-btn">
-            
-          </button>
-        </div>
-
-        <p className="register-login">
-          Already have an account? <a href="/login">Log in</a>
+        <p className="register-footer">
+          Already have an account? <Link to="/login">Log in</Link>
         </p>
       </div>
     </div>

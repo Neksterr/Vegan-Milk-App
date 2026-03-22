@@ -31,10 +31,15 @@ export type AccountLoginResponse = {
 
 const api = axios.create({
   baseURL: "http://localhost:8087/api/auth",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 export const register = (data: AccountRegisterRequest) =>
-  api.post<AccountRegisterResponse>("/register", data);
+  api.post("/register", data);
 
 export const login = (data: AccountLoginRequest) =>
-  api.post<AccountLoginResponse>("/login", data);
+  api.post("/login", data);
+
+export default api;
