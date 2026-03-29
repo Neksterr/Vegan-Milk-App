@@ -12,3 +12,66 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+:root {
+  box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+}
+
+.nav-item {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: #3b3b3b;
+  font-size: 22px;
+  display: grid;
+  place-items: center;
+}
+
+.nav-center {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  margin-top: -22px;
+  background: #8fbc53;
+  color: white;
+  box-shadow: 0 10px 18px rgba(143, 188, 83, 0.4);
+}
+
+.custom-marker {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+
+.custom-marker img {
+  width: 58px;
+  height: 72px;
+  display: block;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.18));
+}
+
+.custom-marker.selected {
+  transform: scale(1.08);
+}
+
+.maplibregl-control-container .maplibregl-ctrl-top-right {
+  top: 74px;
+  right: 12px;
+}
+
+.maplibregl-ctrl-group {
+  border-radius: 14px !important;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12) !important;
+}
+
+.maplibregl-ctrl button {
+  width: 40px !important;
+  height: 40px !important;
+}
