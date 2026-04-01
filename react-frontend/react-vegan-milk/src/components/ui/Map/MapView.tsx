@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import maplibregl, { type Map, type Marker } from 'maplibre-gl';
-import type { LocationItem } from '../types';
+import { LocationItem } from '@/api/types';
 
 type Props = {
   locations: LocationItem[];

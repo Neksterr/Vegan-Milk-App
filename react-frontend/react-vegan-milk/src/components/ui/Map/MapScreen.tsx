@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import type { LocationItem } from '../types';
 import { MapView } from './MapView';
-import { TopBar } from './TopBar';
-import { BottomCard } from './BottomCard';
-import { BottomNav } from './BottomNav';
+import { LocationItem } from '@/api/types';
+import { BottomNav } from '../Menu/BottomNav';
 
 type Props = {
   locations: LocationItem[];

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { MapScreen } from "../components/ui/Map/MapScreen";
-import type { MachineMapResponse } from "../types";
+import { fetchMachinesForMap } from "@/api/api";
+import { MachineMapResponse } from "@/api/types";
+import { MapScreen } from "@/components/ui/Map/MapScreen";
 
 export function MapPage() {
   const [machines, setMachines] = useState<MachineMapResponse[]>([]);
@@ -10,7 +11,7 @@ export function MapPage() {
   useEffect(() => {
     fetchMachinesForMap({ onlyActive: true }).then((data) => {
       setMachines(data);
-      setSelected(data[0] ?? null);``
+      setSelected(data[0] ?? null);
     });
   }, []);
 
